@@ -1,0 +1,82 @@
+id: fullduplex_tdma_scheduler
+label: TDMA Scheduler
+category: '[FULLDUPLEX]'
+documentation: |-
+  Generates a TDMA schedule for up to 4 radios
+  Radio 1 serves as the BS and up to three other radios serve as the UEs
+  BS and UEs can either be in HD or FD mode
+
+templates:
+  imports: import fullduplex
+  make: fullduplex.tdma_scheduler(${debug}, ${num_radios}, ${num_fd_radios}, ${fd_bs}, ${iui_free}, ${mode})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as \$keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+parameters:
+- id: debug
+  label: Debug
+  dtype: enum
+  default: False
+  options: ['True', 'False']
+  option_labels: [Enabled, Disabled]
+- id: num_radios
+  label: Radio Count
+  dtype: enum
+  default: 3
+  options: ['2', '3', '4']
+  option_labels: [2, 3, 4]
+- id: num_fd_radios
+  label: FD UEs
+  dtype: enum
+  default: 0
+  options: ['0', '1', '2', '3']
+  option_labels: [0, 1, 2, 3]
+- id: fd_bs
+  label: BS Mode
+  dtype: enum
+  default: True
+  options: ['True', 'False']
+  option_labels: [FD, HD]
+- id: iui_free
+  label: IUI Free
+  dtype: enum
+  default: True
+  options: ['True', 'False']
+  option_labels: [Enabled, Disabled]
+- id: mode
+  label: Real Time Scheduling
+  dtype: enum
+  default: False
+  options: ['True', 'False']
+  option_labels: [Enabled, Disabled]
+
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: clock
+  domain: message
+  optional: 1
+- label: start
+  domain: message
+  optional: 1
+
+outputs:
+- label: slot
+  domain: message
+  optional: 1
+- label: schedule
+  domain: message
+  optional: 1
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

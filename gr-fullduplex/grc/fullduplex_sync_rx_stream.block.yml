@@ -1,0 +1,65 @@
+id: fullduplex_sync_rx_stream
+label: Sync Rx Stream
+category: '[fullduplex]'
+
+templates:
+  imports: import fullduplex
+  make: fullduplex.sync_rx_stream($debug, $pad_front_len, $frame_len, $timeslot_len, $symbol_len, $sig_pilot_pos, $thresh)
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as \$keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+parameters:
+- id: debug
+  label: Debug
+  dtype: bool
+  default: False
+  options: [True, False]
+  option_labels: ["Enable", "Disable"]
+- id: symbol_len
+  label: Symbol Length
+  dtype: int
+  default: 320
+- id: timeslot_len
+  label: Timeslot Length
+  dtype: int
+  default: 0
+- id: frame_len
+  label: Frame Length
+  dtype: int
+  default: 0
+- id: pad_front_len
+  label: Front Padding
+  dtype: int
+  default: 0
+- id: sig_pilot_pos
+  label: Pilot Position
+  dtype: int
+  default: 0
+- id: thresh
+  label: Energy Det. Thresh.
+  dtype: float
+  default: 0.0012
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in
+  domain: stream
+  dtype: complex
+
+outputs:
+- label: out
+  domain: stream
+  dtype: complex
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

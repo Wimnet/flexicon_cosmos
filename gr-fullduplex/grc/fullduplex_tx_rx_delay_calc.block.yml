@@ -1,0 +1,82 @@
+id: fullduplex_tx_rx_delay_calc
+label: TX-RX Delay Calculator
+category: '[FULLDUPLEX]'
+
+templates:
+  imports: import fullduplex
+  make: fullduplex.tx_rx_delay_calc(${debug}, ${radio}, ${measure_delay}, ${startup_delay}, ${pad_front}, ${pad_tail}, ${frame_len}, ${pilot_pos}, ${algorithm}, ${multi_usrp})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as \$keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+parameters:
+- id: debug
+  label: Debug
+  default: False
+  dtype: bool
+- id: radio
+  label: Radio #
+  default: 1
+  dtype: int
+- id: multi_usrp
+  label: Multiple USRPs?
+  default: True
+  dtype: bool
+- id: measure_delay
+  label: Measurement Delay
+  dtype: float
+  default: 1.0
+- id: startup_delay
+  label: Startup Delay
+  dtype: float
+  default: 5.0
+- id: pad_front
+  label: Front Padding
+  dtype: int
+  default: 40000
+- id: pad_tail
+  label: Tail Padding
+  dtype: int
+  default: 1000
+- id: frame_len
+  label: Frame Length
+  dtype: int
+  default: 1600
+- id: pilot_pos
+  label: Pilot Pos
+  dtype: int
+  default: 0
+- id: algorithm
+  label: Algorithm
+  dtype: enum
+  default: 0
+  options: ["0", "1", "2"]
+  option_labels: [Energy Detector, Correlator, Approx. Correlator]
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in_rx
+  domain: stream
+  dtype: complex
+  vlen: 1
+  optional: 0
+
+outputs:
+- label: mute_out
+  domain: message
+  optional: 1
+- label: delay_out
+  domain: message
+  optional: 1
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

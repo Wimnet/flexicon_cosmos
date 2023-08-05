@@ -1,0 +1,68 @@
+id: fullduplex_fde_config_remote
+label: FDE Remote Config
+category: '[FULLDUPLEX]'
+
+templates:
+  imports: import fullduplex
+  make: fullduplex.fde_config_remote(${debug}, ${sn_val})
+  callbacks: 
+    - set_all(${att_0_val}, ${att_1_val}, ${att_2_val}, ${cf_0_val}, ${cf_1_val}, ${qf_0_val}, ${qf_1_val}, ${dac_0_val}, ${dac_1_val}, ${dac_2_val}, ${canc_path_val}, ${tuner_cap_0_val}, ${tuner_cap_1_val}, ${tuner_cap_2_val})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as \${keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+parameters:
+- id: sn_val
+  label: FDE board
+  dtype: string
+- id: canc_path_val
+  label: Canceller Path Val
+  dtype: int
+- id: att_0_val
+  label: Attenuator 0
+  dtype: int
+- id: att_1_val
+  label: Attenuator 1
+  dtype: int
+- id: att_2_val
+  label: Attenuator 2
+  dtype: int
+- id: dac_0_val
+  label: DAC 0
+  dtype: int
+- id: dac_1_val
+  label: DAC 1
+  dtype: int
+- id: dac_2_val
+  label: DAC 2
+  dtype: int
+- id: cf_0_val
+  label: CF 0
+  dtype: int
+- id: cf_1_val
+  label: CF 1
+  dtype: int
+- id: qf_0_val
+  label: QF 0
+  dtype: int
+- id: qf_1_val
+  label: QF 1
+  dtype: int
+- id: tuner_cap_0_val
+  label: Tuner Cap 0 Val
+  dtype: int
+- id: tuner_cap_1_val
+  label: Tuner Cap 1 Val
+  dtype: int
+- id: tuner_cap_2_val
+  label: Tuner Cap 2 Val
+  dtype: int
+- id: debug
+  label: Debug
+  dtype: bool
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1
